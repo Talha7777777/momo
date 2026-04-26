@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>💕 Our Love Album | 40 Treasured Moments 💕</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffccdd 40%, #ffb3c6 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            min-height: 100vh;
+        }
+
+        /* Custom Cursor - Romantic Spark */
+        .cursor-spark {
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ffb7c5, #ff4d6d);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: screen;
+            filter: blur(2px);
+            transition: transform 0.08s linear;
+            box-shadow: 0 0 20px #ff99aa;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1.5rem 3rem;
+            background: rgba(255, 245, 240, 0.5);
+            backdrop-filter: blur(12px);
+            border-bottom: 4px solid rgba(255, 105, 140, 0.6);
+            margin-bottom: 2rem;
+            animation: fadeSlideDown 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #b82b52, #ff6b8b, #e8476e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+            text-shadow: 5px 5px 25px rgba(255, 80, 120, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #a13e5a;
+            font-weight: 600;
+            margin-top: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .hero .badge {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .hero i {
+            animation: heartBeat 1.6s infinite;
+            color: #ff4d6d;
+        }
+
+        /* Floating Hearts */
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 1.6rem;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatHeartUp 6s linear forwards;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 4px pink);
+        }
+
+        /* Gallery Grid */
+        .gallery-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 1rem 2rem 5rem;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.8rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: rgba(255, 250, 245, 0.92);
+            backdrop-filter: blur(4px);
+            border-radius: 35px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.25);
+            transition: all 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            transform: translateY(0) scale(1);
+            cursor: pointer;
+            position: relative;
+            animation: fadeScaleUp 0.6s ease backwards;
+            border: 1px solid rgba(255, 220, 210, 0.9);
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 35px 55px -18px rgba(190, 50, 80, 0.5);
+            border-color: #ffb0c0;
+        }
+
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+            background: #f7d9e2;
+        }
+
+        .album-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.4s;
+            display: block;
+        }
+
+        .card:hover .album-img {
+            transform: scale(1.1);
+            filter: brightness(1.03) contrast(1.05);
+        }
+
+        .overlay-glow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(255, 80, 110, 0.6), transparent);
+            opacity: 0;
+            transition: 0.4s;
+            height: 80px;
+        }
+
+        .card:hover .overlay-glow {
+            opacity: 1;
+        }
+
+        .card-caption {
+            padding: 1rem 1rem 1.3rem;
+            text-align: center;
+            background: rgba(255, 243, 240, 0.98);
+        }
+
+        .card-caption h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #b13b5c;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-caption p {
+            font-size: 0.75rem;
+            color: #c96f85;
+            margin-top: 5px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            z-index: 100000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-img {
+            max-width: 85%;
+            max-height: 80%;
+            border-radius: 28px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5);
+            border: 5px solid rgba(255, 200, 210, 0.9);
+            transform: scale(0.96);
+            transition: transform 0.3s;
+        }
+
+        .lightbox.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        .lightbox-caption {
+            color: #fff0f3;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .close-light {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2.8rem;
+            color: #ffbac9;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        /* Magic Button */
+        .magic-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #ff5e7e, #ff2e5a);
+            backdrop-filter: blur(8px);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+            transition: 0.2s;
+            border: none;
+            animation: pulseGlow 2s infinite;
+        }
+
+        .magic-button:hover {
+            transform: scale(1.1);
+            background: #ff1f4f;
+        }
+
+        /* Keyframes */
+        @keyframes fadeSlideDown {
+            0% { opacity: 0; transform: translateY(-50px);}
+            100% { opacity: 1; transform: translateY(0);}
+        }
+
+        @keyframes fadeScaleUp {
+            0% { opacity: 0; transform: scale(0.9) translateY(30px);}
+            100% { opacity: 1; transform: scale(1) translateY(0);}
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1);}
+            50% { transform: scale(1.25); color: #ff1f4f;}
+        }
+
+        @keyframes floatHeartUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; bottom: -20px;}
+            100% { transform: translateY(-1100px) rotate(20deg); opacity: 0; bottom: 100%;}
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 60, 100, 0.6);}
+            70% { box-shadow: 0 0 0 15px rgba(255, 60, 100, 0);}
+            100% { box-shadow: 0 0 0 0 rgba(255, 60, 100, 0);}
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffdee8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff779b;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #a13e5e;
+            font-weight: 600;
+            background: rgba(255, 235, 240, 0.5);
+            margin-top: 2rem;
+        }
+
+        /* Upload Instructions Box */
+        .instructions {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            background: rgba(255, 240, 245, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 1rem 1.8rem;
+            text-align: center;
+            border: 2px dashed #ff99bb;
+        }
+        .instructions h3 {
+            color: #b13b5c;
+            margin-bottom: 8px;
+        }
+        .instructions code {
+            background: #ffe0e8;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        @media (max-width: 650px) {
+            .hero h1 { font-size: 2.2rem; }
+            .album-grid { gap: 1.2rem; }
+            .img-wrapper { height: 230px; }
+            .magic-button { width: 50px; height: 50px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor-spark" id="sparkCursor"></div>
+
+<div class="hero">
+    <h1>💖 Your 16 Treasured Moments 💖</h1>
+    <p><i class="fas fa-heart"></i> each picture tells our story <i class="fas fa-star"></i> click to relive the magic</p>
+    <div class="badge"><i class="fas fa-images"></i> exactly 16 slots — fill with your love</div>
+</div>
+
+<div class="instructions">
+    <h3><i class="fas fa-heart"></i> Your Moments <i class="fas fa-heart"></i></h3>
+    <p>👇 Replace the image URLs inside the <strong>"Your 16 IMAGES ARRAY"</strong> section in the code 👇</p>
+    <p><code>images of Good Looking Photos</code> ← change to your file paths <br> or use full web links like <code>MOMO</code></p>
+    <p>✨ Each image has a <strong>caption</strong> and <strong>alt text</strong> — personalize them! ✨</p>
+</div>
+
+<div class="gallery-container">
+    <div class="album-grid" id="albumGrid">
+        <div class="loader-init" style="text-align: center; padding: 60px;">
+            <i class="fas fa-heart fa-pulse"></i> Loading your beautiful memories... <i class="fas fa-heart fa-pulse"></i>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <i class="fas fa-camera-retro"></i> made with infinite love &nbsp;|&nbsp; 40 special moments &nbsp;|&nbsp; forever yours
+</footer>
+
+<div id="lightboxModal" class="lightbox">
+    <span class="close-light"><i class="fas fa-times-circle"></i></span>
+    <img class="lightbox-img" id="lightboxImg" alt="beautiful memory">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<button class="magic-button" id="romanceBurstBtn"><i class="fas fa-feather-alt"></i></button>
+
+<script>
+    // ===========================================================
+    // METHOD 5: YOUR 40 IMAGES ARRAY - REPLACE WITH YOUR OWN PHOTOS!
+    // ===========================================================
+    // Just edit the URLs and captions below. Add your local image paths
+    // or online image URLs. Make sure to keep the same structure.
+    
+    const my40Images = [
+        { id: 1, url: "https://drive.google.com/thumbnail?id=1Z8lMKoFzt_3WLHWTREw_kt9j97i55A8m&sz=w1000", 
+  caption: "💖 Our beautiful memory", 
+  alt: "memory 1" },
+        { id: 2, url: "https://drive.google.com/thumbnail?id=13NPOYowUVFJD-9WCvzC1eyq2e9Xw4TRT&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 2" },
+        { id: 3, url: "https://drive.google.com/thumbnail?id=1p-FHKBJqIEB9S81SEGaAAZfRCJ_ZzX-e&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 3" },
+        { id: 4, url: "https://drive.google.com/thumbnail?id=1LbovSBEw7ojTrgxmhkwqzr6fMH6sSeRv&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 4" },
+        { id: 5, url: "https://drive.google.com/thumbnail?id=1KOHhEccIeVly5JPjtlUJ9qfVCWidz8IX&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 5" },
+        { id: 6, url: "https://drive.google.com/thumbnail?id=1ISM80TImj-MqC58yfhBmoZsSDl9XsURJ&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 6" },
+        { id: 7, url: "https://drive.google.com/thumbnail?id=12cdzQqXlJzwRERhGYh_X0FIC3LUxFEA1&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 7" },
+        { id: 8, url: "https://drive.google.com/thumbnail?id=1SiAUKs8foOfRrp1dV0XvAVg-wOZTXsOg&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 8" },
+        { id: 9, url: "https://drive.google.com/thumbnail?id=154b9Ay4Q_Kw9-D_ndVP28WLkvHhlRaXO&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 9" },
+        { id: 10, url: "https://drive.google.com/thumbnail?id=1kptp5pE4tZ8WRrEzGFZKjKIn-4x0GyQP&sz=w1000", 
+  caption: " 💖 beautiful memory", 
+  alt: "memory 10" },
+        { id: 11, url: "https://drive.google.com/thumbnail?id=1iPszRIEbGxveGZrydHlF40lWwR9aki11&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 11" },
+        { id: 12, url: "https://drive.google.com/thumbnail?id=19YSu4hzpNMjkZ3D_Al8gErMA0D39W-qd&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 12" },
+        { id: 13, url: "https://drive.google.com/thumbnail?id=1x6OWbyGHIm2u6LfUBiDhS4nYk-S4d8DO&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 13" },
+        { id: 14, url: "https://drive.google.com/thumbnail?id=1uR90C-Bmibm-bhZTtNg_45FhKOv6mvxy&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 14" },
+        { id: 15, url: "https://drive.google.com/thumbnail?id=1E2r-LDbQthlixVmO4oT9m9q79_COK58V&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 15" },
+        { id: 16, url: "https://drive.google.com/thumbnail?id=1yaB4AL2kZpUpwQiCqCqf5sgQQ08Nghi5&sz=w1000", 
+  caption: "💖 beautiful memory", 
+  alt: "memory 16" },
+    ];
+
+    // ===========================================================
+    // END OF YOUR IMAGES ARRAY - EXACTLY 40 SLOTS!
+    // ===========================================================
+    // IMPORTANT: 
+    // 1. Put your image files in an "images" folder next to this HTML file
+    //    OR change the "images/photoX.jpg" to full web URLs
+    // 2. You can also rename captions to your personal memories!
+    // 3. Supported formats: JPG, PNG, GIF, WEBP
+    
+    // For demonstration, if images are missing, fallback to beautiful placeholder
+    // But you will replace with your real images!
+    
+    // Optional: If you don't have images ready yet, uncomment the next line to use placeholders
+    // But for your real album, just replace the URLs above with your actual image paths.
+    
+    // The rest of the code auto-generates your 40 beautiful cards!
+    
+    const allImages = my40Images;  // exactly 40 images
+    
+    console.log("✅ Album loaded with", allImages.length, "images. Replace URLs with your own!");
+    
+    // DOM elements
+    const gridContainer = document.getElementById('albumGrid');
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const closeLightBtn = document.querySelector('.close-light');
+    const romanceBtn = document.getElementById('romanceBurstBtn');
+    
+    // Render album with animations
+    function renderAlbum() {
+        gridContainer.innerHTML = '';
+        allImages.forEach((img, index) => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.style.animationDelay = `${(index % 20) * 0.03}s`;
+            card.setAttribute('data-id', img.id);
+            
+            // Fallback image handling: if image fails to load, show a romantic placeholder
+            const imgElement = document.createElement('img');
+            imgElement.className = 'album-img';
+            imgElement.src = img.url;
+            imgElement.alt = img.alt;
+            imgElement.loading = 'lazy';
+            imgElement.onerror = function() {
+                this.src = 'https://picsum.photos/id/20/550/420'; // graceful fallback
+                this.alt = 'placeholder';
+            };
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = 'img-wrapper';
+            wrapper.appendChild(imgElement);
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay-glow';
+            wrapper.appendChild(overlay);
+            
+            const captionDiv = document.createElement('div');
+            captionDiv.className = 'card-caption';
+            captionDiv.innerHTML = `
+                <h3><i class="fas fa-heart"></i> ${img.caption}</h3>
+                <p><i class="fas fa-camera"></i> memory #${img.id}</p>
+            `;
+            
+            card.appendChild(wrapper);
+            card.appendChild(captionDiv);
+            
+            // Lightbox trigger
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxImg.src = imgElement.src;
+                lightboxCaption.innerText = `✨ ${img.caption} — forever in my heart ✨`;
+                lightboxModal.classList.add('active');
+                if(navigator.vibrate) navigator.vibrate(30);
+            });
+            
+            gridContainer.appendChild(card);
+        });
+    }
+    
+    // Floating hearts generator
+    function createFloatingHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        const heartSymbols = ['❤️', '💖', '💗', '💓', '🌸', '✨', '💕', '💘', '🌹', '💋'];
+        heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.fontSize = (Math.random() * 1.3 + 1) + 'rem';
+        heart.style.animationDuration = (Math.random() * 3 + 4.5) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+    
+    let heartInterval;
+    function startFloatingHearts() {
+        if(heartInterval) clearInterval(heartInterval);
+        heartInterval = setInterval(() => {
+            for(let i = 0; i < 2; i++) createFloatingHeart();
+        }, 1000);
+    }
+    
+    // Romantic burst effect
+    function burstRomanticHearts() {
+        for(let i = 0; i < 40; i++) {
+            setTimeout(() => createFloatingHeart(), i * 40);
+        }
+        const hero = document.querySelector('.hero');
+        if(hero) {
+            hero.style.transform = 'scale(1.01)';
+            setTimeout(() => hero.style.transform = '', 300);
+        }
+        if (navigator.vibrate) navigator.vibrate(50);
+    }
+    
+    // Cursor spark effect
+    const sparkCursor = document.getElementById('sparkCursor');
+    document.addEventListener('mousemove', (e) => {
+        sparkCursor.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
+    });
+    
+    // Lightbox controls
+    function closeLightbox() {
+        lightboxModal.classList.remove('active');
+    }
+    closeLightBtn.addEventListener('click', closeLightbox);
+    lightboxModal.addEventListener('click', (e) => {
+        if(e.target === lightboxModal) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && lightboxModal.classList.contains('active')) closeLightbox();
+    });
+    
+    // Magic button
+    romanceBtn.addEventListener('click', () => {
+        burstRomanticHearts();
+        const btnIcon = romanceBtn.querySelector('i');
+        btnIcon.style.transform = 'rotate(20deg) scale(1.2)';
+        setTimeout(() => btnIcon.style.transform = '', 300);
+    });
+    
+    // Ripple effect on cards
+    document.body.addEventListener('click', (e) => {
+        const card = e.target.closest('.card');
+        if(card) {
+            const ripple = document.createElement('span');
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.backgroundColor = 'rgba(255, 100, 130, 0.5)';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+            ripple.style.animation = 'rippleAnim 0.5s ease-out';
+            ripple.style.left = e.clientX - card.getBoundingClientRect().left + 'px';
+            ripple.style.top = e.clientY - card.getBoundingClientRect().top + 'px';
+            ripple.style.pointerEvents = 'none';
+            card.style.position = 'relative';
+            card.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        }
+    });
+    
+    // Add ripple keyframes
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+        @keyframes rippleAnim {
+            from { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
+            to { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+        }
+        .card { position: relative; overflow: hidden; }
+    `;
+    document.head.appendChild(styleSheet);
+    
+    // Initialize everything
+    window.addEventListener('load', () => {
+        renderAlbum();
+        startFloatingHearts();
+        setTimeout(() => {
+            const loader = document.querySelector('.loader-init');
+            if(loader) loader.style.display = 'none';
+        }, 300);
+        
+        // Extra heart sprinkles
+        setInterval(() => {
+            if(Math.random() > 0.7) createFloatingHeart();
+        }, 1500);
+        
+        // Show total count in footer
+        const footer = document.querySelector('footer');
+        if(footer) {
+            const countSpan = document.createElement('span');
+            countSpan.style.marginLeft = '15px';
+            countSpan.style.background = '#ffdfe8';
+            countSpan.style.padding = '4px 14px';
+            countSpan.style.borderRadius = '40px';
+            countSpan.style.fontSize = '0.85rem';
+            countSpan.innerHTML = `<i class="fas fa-heart"></i> ${allImages.length} memories`;
+            footer.appendChild(countSpan);
+        }
+    });
+</script>
+</body>
+</html>
